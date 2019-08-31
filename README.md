@@ -1,29 +1,96 @@
-# vue-apollo
+# Query
 
-## Project setup
-```
-yarn install
-```
+## Simple Query
 
-### Compiles and hot-reloads for development
 ```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
+<template>
+  <div>
+    <p>{{ users }}</p>
+  </div>
+</template>
+<script>
 ```
 
-### Run your tests
-```
-yarn run test
+```javascript
+import gql from 'graphql-tag'
+
+export default {
+  data() {
+    return {
+      users: []
+    }
+  },
+  apollo: {
+    users: gql`
+      query {
+        users(where: { name: "Kit Jonathan Te" }) {
+          id
+          name
+        }
+      }
+    `
+  }
+}
+</script>
 ```
 
-### Lints and fixes files
+## Name Matching
+
 ```
-yarn run lint
+<template>
+  <div>
+    <p>{{ people }}</p>
+  </div>
+</template>
+<script>
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```javascript
+import gql from 'graphql-tag'
+
+export default {
+  data() {
+    return {
+      people: []
+    }
+  },
+  apollo: {
+    people: gql`
+      query {
+        people: users(where: { name: "Kit Jonathan Te" }) {
+          id
+          name
+        }
+      }
+    `
+  }
+}
+</script>
+```
+
+```javascript
+import gql from 'graphql-tag'
+
+export default {
+  data() {
+    return {
+      people: []
+    }
+  },
+  apollo: {
+    people: {
+      query: gql`
+        query {
+          users(where: { name: "Kit Jonathan Te" }) {
+            id
+            name
+          }
+        }
+      `,
+      update: data => data.users
+    }
+  }
+}
+```
+
+## Query with parameters
