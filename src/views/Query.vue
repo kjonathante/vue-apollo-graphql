@@ -15,14 +15,17 @@ export default {
   apollo: {
     people: {
       query: gql`
-        query {
-          users(where: { name: "Kit Jonathan Te" }) {
+        query GetUser($name: String!) {
+          users(where: { name: $name }) {
             id
             name
           }
         }
       `,
-      update: data => data.users
+      update: data => data.users,
+      variables: {
+        name: 'Kit Jonathan Te'
+      }
     }
   }
 }
