@@ -1,3 +1,12 @@
+## Table of Contents
+
+- [Query](#query)
+  - [Simple Query](#simple-query)
+  - [Name Matching](#name-matching)
+  - [Query with parameters](#query-with-parameters)
+  - [Reactive parameters](#reactive-parameters)
+  - [Reactive query definition](#reactive-query-definition)
+
 # Query
 
 ## Simple Query
@@ -122,3 +131,45 @@ export default {
   }
 }
 ```
+
+## Reactive parameters
+
+```
+<template>
+  <div>
+    <input v-model="nameInput" placeholder="Enter a name" />
+    <p>{{ people }}</p>
+  </div>
+</template>
+```
+
+```javascript
+import gql from 'graphql-tag'
+
+export default {
+  data() {
+    return {
+      nameInput: '',
+      people: []
+    }
+  },
+  apollo: {
+    people: {
+      query: gql`
+        query GetUser($name: String!) {
+          users(where: { name: $name }) {
+            id
+            name
+          }
+        }
+      `,
+      update: data => data.users,
+      variables() {
+        return { name: this.nameInput }
+      }
+    }
+  }
+}
+```
+
+## Reactive query definition
