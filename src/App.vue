@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link>_|_
       <router-link to="/about">About</router-link>_|_
       <router-link :to="{ name: 'query' }">Query</router-link>_|_
-      <router-link :to="{ name: 'query2' }">Query2</router-link>
+      <router-link :to="{ name: 'query2' }">Query2</router-link>_|_
+      <router-link :to="{ name: 'mutation' }">Mutation</router-link>
     </div>
     <router-view />
   </div>
