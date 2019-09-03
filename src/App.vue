@@ -6,7 +6,8 @@
       <router-link :to="{ name: 'query' }">Query</router-link>_|_
       <router-link :to="{ name: 'query2' }">Query2</router-link>_|_
       <router-link :to="{ name: 'mutation' }">Mutation</router-link>_|_
-      <router-link :to="{ name: 'subscription' }">Subscription</router-link>
+      <router-link :to="{ name: 'subscription' }">Subscription</router-link>_|_
+      <router-link :to="{ name: 'subscription2' }">Subscription2</router-link>
     </div>
     <router-view />
   </div>
