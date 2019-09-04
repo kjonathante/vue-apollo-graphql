@@ -3,10 +3,12 @@
     <p>{{ global }}</p>
     <input type="text" v-model="text" />
     <button v-on:click="updateProperty">Change</button>
+    <card />
   </div>
 </template>
 <script>
 import { globalProperty1Query, globalProperty1Mutation } from '../state/queries'
+import card from '../components/Card'
 
 export default {
   data() {
@@ -28,6 +30,10 @@ export default {
         variables: { value: this.text }
       })
     }
+  },
+
+  components: {
+    card
   }
 }
 </script>
