@@ -7,6 +7,8 @@ import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 
+import { typeDefs, resolvers } from './state/resolvers'
+
 Vue.use(VueApollo)
 
 // HTTP connection to the API
@@ -45,7 +47,19 @@ const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   link,
   cache,
+  typeDefs,
+  resolvers,
   connectToDevTools: true
+})
+
+cache.writeData({
+  data: {
+    global: {
+      __typename: 'Global',
+      id: '001',
+      property1: 'Something'
+    }
+  }
 })
 
 const apolloProvider = new VueApollo({

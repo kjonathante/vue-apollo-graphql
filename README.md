@@ -273,3 +273,69 @@ export default {
   }
 }
 ```
+
+# Local State
+
+#### Type Definition
+
+```javascript
+export const typeDefs = gql`
+  type Global {
+    id: ID!
+    property1: String!
+  }
+
+  type Mutation {
+    updateGlobalProperty1(value: String!): String!
+  }
+`
+```
+
+#### Queries
+
+```javascript
+export const globalProperty1Query = gql`
+  {
+    global @client {
+      id
+      property1
+    }
+  }
+`
+export const globalProperty1Mutation = gql`
+  mutation($value: String!) {
+    updateGlobalProperty1(value: $value) @client
+  }
+`
+```
+
+#### Resolvers
+
+```javascript
+import { globalProperty1Query } from './queries'
+
+export const resolvers = {
+  Mutation: {
+    updateGlobalProperty1: (_, { value }, { cache }) => {
+      const data = cache.readQuery({ query: globalProperty1Query })
+      data.global.property1 = value
+      cache.writeQuery({ query: globalProperty1Query, data })
+      return value
+    }
+  }
+}
+```
+
+#### Initialize Cache
+
+```javascript
+cache.writeData({
+  data: {
+    global: {
+      __typename: 'Global',
+      id: '001',
+      property1: 'Something'
+    }
+  }
+})
+```
