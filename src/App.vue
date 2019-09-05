@@ -8,8 +8,8 @@
       <router-link :to="{ name: 'mutation' }">Mutation</router-link>_|_
       <router-link :to="{ name: 'subscription' }">Subscription</router-link>_|_
       <router-link :to="{ name: 'subscription2' }">Subscription2</router-link
-      >_|_
-      <router-link :to="{ name: 'localstate' }">LocalState</router-link>
+      >_|_ <router-link :to="{ name: 'localstate' }">LocalState</router-link>_|_
+      <router-link :to="{ name: 'localstate2' }">LocalState2</router-link>
     </div>
     <router-view />
   </div>
