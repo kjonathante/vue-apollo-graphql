@@ -7,6 +7,11 @@
   - [Reactive parameters](#reactive-parameters)
   - [Reactive query definition](#reactive-query-definition)
 - [Mutation](#mutation)
+- [Local State](#local-state)
+  - [Type Definition](#type-definition)
+  - [Queries](#queries)
+  - [Resolvers](#resolvers)
+  - [Initialize Cache](#initialize-cache)
 
 # Query
 
