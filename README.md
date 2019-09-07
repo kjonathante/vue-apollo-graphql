@@ -1,3 +1,5 @@
+# Vue Apollo
+
 ## Table of Contents
 
 - [Query](#query)
@@ -12,10 +14,14 @@
   - [Queries](#queries)
   - [Resolvers](#resolvers)
   - [Initialize Cache](#initialize-cache)
+- [Pagination](#pagination)
+  - [Resources](#pagination-resources)
+  - [Query](#pagination-query)
+  - [Code](#pagination-code)
 
-# Query
+## Query
 
-## Simple Query
+#### Simple Query
 
 ```
 <template>
@@ -49,7 +55,7 @@ export default {
 </script>
 ```
 
-## Name Matching
+#### Name Matching
 
 ```
 <template>
@@ -108,7 +114,7 @@ export default {
 }
 ```
 
-## Query with parameters
+#### Query with parameters
 
 ```javascript
 import gql from 'graphql-tag'
@@ -138,7 +144,7 @@ export default {
 }
 ```
 
-## Reactive parameters
+#### Reactive parameters
 
 ```
 <template>
@@ -178,9 +184,9 @@ export default {
 }
 ```
 
-## Reactive query definition
+#### Reactive query definition
 
-# Mutation
+## Mutation
 
 ### The cache needs to be initialized so the update function can work without any problem.
 
@@ -279,7 +285,7 @@ export default {
 }
 ```
 
-# Local State
+## Local State
 
 #### Type Definition
 
@@ -345,15 +351,15 @@ cache.writeData({
 })
 ```
 
-# Pagination
+## Pagination
 
-### Resources
+#### Pagination Resources
 
 - [Understanding pagination: REST, GraphQL, and Relay](https://blog.apollographql.com/understanding-pagination-rest-graphql-and-relay-b10f835549e7)
 - [Explaining GraphQL Connections](https://blog.apollographql.com/explaining-graphql-connections-c48b7c3d6976)
 - [Vue Apollo - Pagination](https://vue-apollo.netlify.com/guide/apollo/pagination.html)
 
-### Query
+#### Pagination Query
 
 ```javascript
 const query = gql`
@@ -376,7 +382,7 @@ const query = gql`
 `
 ```
 
-### Code
+#### Pagination Code
 
 ```javascript
 const model = 'usersConnection'
