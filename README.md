@@ -344,3 +344,76 @@ cache.writeData({
   }
 })
 ```
+
+# Pagination
+
+### Resources
+
+- [Understanding pagination: REST, GraphQL, and Relay](https://blog.apollographql.com/understanding-pagination-rest-graphql-and-relay-b10f835549e7)
+- [Explaining GraphQL Connections](https://blog.apollographql.com/explaining-graphql-connections-c48b7c3d6976)
+- [Vue Apollo - Pagination](https://vue-apollo.netlify.com/guide/apollo/pagination.html)
+
+### Query
+
+```javascript
+const query = gql`
+  query UsersConnection($first: Int = 1, $after: String) {
+    usersConnection(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          name
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`
+```
+
+### Code
+
+```javascript
+const model = 'usersConnection'
+
+export default {
+  apollo: {
+    [model]: {
+      query
+    }
+  },
+
+  methods: {
+    handleMore() {
+      this.$apollo.queries[model].fetchMore({
+        variables: {
+          after: this[model].pageInfo.endCursor
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousResult
+
+          return {
+            [model]: {
+              __typename: fetchMoreResult[model].__typename,
+              edges: [
+                ...previousResult[model].edges,
+                ...fetchMoreResult[model].edges
+              ],
+              pageInfo: { ...fetchMoreResult[model].pageInfo }
+            }
+          }
+        }
+      })
+    }
+  },
+
+  components: {
+    Card
+  }
+}
+```

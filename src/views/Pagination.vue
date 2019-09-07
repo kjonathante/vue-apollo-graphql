@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div v-if="usersConnection">
     <div class="div">
       <Card
-        v-for="user in users"
+        v-for="user in usersConnection.edges"
         :key="user.node.id"
         v-bind:content="user.node.name"
       />
     </div>
-    <button v-if="hasNextPage" v-on:click="handleMore">More</button>
+    <button v-if="usersConnection.pageInfo.hasNextPage" v-on:click="handleMore">More</button>
   </div>
 </template>
 
@@ -15,52 +15,41 @@
 import gql from 'graphql-tag'
 import Card from '../components/Card'
 
-export default {
-  data() {
-    return {
-      hasNextPage: false,
-      endCursor: ''
-    }
-  },
-
-  apollo: {
-    users: {
-      query: gql`
-        query UsersConnection($after: String) {
-          usersConnection(first: 1, after: $after) {
-            edges {
-              node {
-                id
-                name
-              }
-              cursor
-            }
-            pageInfo {
-              hasNextPage
-              startCursor
-              endCursor
-            }
-          }
+const query = gql`
+  query UsersConnection($first: Int = 1, $after: String) {
+    usersConnection(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          name
         }
-      `,
-      update(data) {
-        this.endCursor = data.usersConnection.pageInfo.endCursor
-        this.hasNextPage = data.usersConnection.pageInfo.hasNextPage
-        return data.usersConnection.edges
+        cursor
       }
+      pageInfo {
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+`
+const model = 'usersConnection'
+
+export default {
+  apollo: {
+    [model]: {
+      query
     }
   },
 
   methods: {
     handleMore() {
-      this.$apollo.queries.users.fetchMore({
+      this.$apollo.queries[model].fetchMore({
         variables: {
-          after: this.endCursor
+          after: this[model].pageInfo.endCursor
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           if (!fetchMoreResult) return previousResult
-
-          const model = 'usersConnection'
 
           return {
             [model]: {
