@@ -57,7 +57,7 @@ cache.writeData({
     global: {
       __typename: 'Global',
       id: '001',
-      property1: 'Something'
+      property1: 'grey'
     },
     todoItems: [
       {
