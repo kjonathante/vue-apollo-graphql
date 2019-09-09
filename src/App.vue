@@ -11,6 +11,9 @@
       <router-link :to="{ name: 'localstate' }">LocalState</router-link>
       <router-link :to="{ name: 'localstate2' }">LocalState2</router-link>
       <router-link :to="{ name: 'pagination' }">Pagination</router-link>
+      <router-link :to="{ name: 'webpackgraphqlloader' }"
+        >Webpack GraphQL Loader</router-link
+      >
     </div>
     <router-view />
   </div>

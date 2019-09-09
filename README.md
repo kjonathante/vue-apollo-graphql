@@ -18,6 +18,7 @@
   - [Resources](#pagination-resources)
   - [Query](#pagination-query)
   - [Code](#pagination-code)
+- [Webpack GraphQL Loader](webpack-graphql-loader)
 
 ## Query
 
@@ -422,4 +423,46 @@ export default {
     Card
   }
 }
+```
+
+## Webpack GraphQL Loader
+
+```javascript
+// vue.config.js
+module.exports = {
+  chainWebpack: config => {
+    // GraphQL Loader
+    config.module
+      .rule('graphql')
+      .test(/\.(graphql|gql)$/)
+      .use('graphql-tag/loader')
+      .loader('graphql-tag/loader')
+      .end()
+  }
+}
+```
+
+```
+// usersConnection.gql or usersConnection.graphql
+query UsersConnection($first: Int = 2, $after: String) {
+  usersConnection(first: $first, after: $after) {
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      startCursor
+      endCursor
+    }
+  }
+}
+```
+
+```javascript
+// any vue file
+import USERS_CONNECTION from '../graphql/usersConnection.gql'
 ```
