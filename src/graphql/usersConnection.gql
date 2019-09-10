@@ -1,3 +1,4 @@
+#import "./usersConnectionFragment.gql"
 query UsersConnection($first: Int = 2, $after: String) {
   usersConnection(first: $first, after: $after) {
     edges {
@@ -8,9 +9,7 @@ query UsersConnection($first: Int = 2, $after: String) {
       cursor
     }
     pageInfo {
-      hasNextPage
-      startCursor
-      endCursor
+      ...PageInfo
     }
   }
 }

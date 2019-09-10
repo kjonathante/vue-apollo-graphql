@@ -7,7 +7,9 @@
         v-bind:content="user.node.name"
       />
     </div>
-    <button v-if="usersConnection.pageInfo.hasNextPage" v-on:click="handleMore">More</button>
+    <button v-if="usersConnection.pageInfo.hasNextPage" v-on:click="handleMore">
+      More
+    </button>
   </div>
 </template>
 
