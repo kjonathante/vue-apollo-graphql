@@ -1,4 +1,6 @@
 module.exports = {
+  publicPath:
+    process.env.NODE_ENV === 'production' ? '/vue-apollo-graphql/' : '/',
   chainWebpack: config => {
     // GraphQL Loader
     config.module
